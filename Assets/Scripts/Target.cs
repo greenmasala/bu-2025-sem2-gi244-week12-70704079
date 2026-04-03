@@ -56,10 +56,7 @@ public class Target : MonoBehaviour, IPointerClickHandler
     {
         if (other.CompareTag("Sensor"))
         {
-            if (this.gameObject.CompareTag("Bad"))
-            {
-                point *= -1;
-            }
+            if (this.gameObject.CompareTag("Bad")) return;
 
             gameManager.UpdateScore(-point);
             Destroy(gameObject);
