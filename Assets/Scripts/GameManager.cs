@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,11 +41,24 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         StartCoroutine(SpawnTargets());
+        scoreText.text = "Score: " + score;
+    }
+
+    public void UpdateScore(int score)
+    {
+        this.score += score; //use this to call for variable announced for the entire script
+        scoreText.text = "Score: " + this.score;
     }
 
     IEnumerator SpawnTargets()
     {
-        yield return null;
+        while (true)
+        {
+            int index = Random.Range(0, targets.Count);
+            var prefab = targets[index];
+            Instantiate(prefab);
+            yield return new WaitForSeconds(spawnRate);
+        }
     }
 }
 
